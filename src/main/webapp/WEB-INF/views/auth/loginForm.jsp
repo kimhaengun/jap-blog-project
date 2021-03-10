@@ -9,7 +9,7 @@
 <body>
 	<h1>로그인 페이지</h1>
 	<hr/>
-	<form action="#" method="POST">
+	<form action="/login" method="POST">
 		<input type="text" placeholder="Username" name="username"/>
 		<input type="password" placeholder="Password" name="password"/>
 		<button>로그인</button>

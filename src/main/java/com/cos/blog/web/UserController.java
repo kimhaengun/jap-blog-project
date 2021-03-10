@@ -13,7 +13,7 @@ public class UserController {
    @GetMapping({"","/"})
    public String home() {
       
-      return "index";
+      return "index"; //ViewResolver발동
    }
    
    @GetMapping("/user")
