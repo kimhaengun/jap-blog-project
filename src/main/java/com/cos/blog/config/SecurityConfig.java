@@ -11,6 +11,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{ // 어댑터�
    
    @Override
    protected void configure(HttpSecurity http) throws Exception {
+	   http.csrf().disable();
       http.authorizeRequests()
          .antMatchers("/user","/post").authenticated() // authenticated 두개만 허용해주는 것, 열리는 것 
          .anyRequest().permitAll() // 나머지는 전부 허용해준다. 
