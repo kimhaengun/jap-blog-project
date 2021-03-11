@@ -21,11 +21,6 @@ public class PostController {
 	private final PostService postService;
 	
 	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
-	
-	@GetMapping("/post")
 	public String findAll(Model model) {
 		List<Post> posts = postService.전체찾기();
 		model.addAttribute("posts",posts); //리퀘스트 디스패쳐 포워딩한것이랑 같다.

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authorize access="isAuthenticated()">
+   <sec:authentication property="principal" var="principal"></sec:authentication>
+</sec:authorize>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +26,19 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
+		
+		<c:choose>
+			<c:when test="${empty principal}">
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
+				<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
+			</ul>
+		</div>			
+			</c:when>
+			
+			<c:otherwise>
 		<!-- Navbar links -->
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav">
@@ -30,6 +46,10 @@
 				<li class="nav-item"><a class="nav-link" href="/user/1">회원정보보기</a></li>
 				<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 			</ul>
-		</div>
+		</div>			
+			</c:otherwise>
+		</c:choose>
+		
+
 	</nav>
 	<br />
