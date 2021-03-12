@@ -30,4 +30,16 @@ spring:
 
   jackson:
     serialization:
-      fail-on-empty-beans: false 
+      fail-on-empty-beans: false
+      
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 373771345952-3l1hnm2p7u6e1bi5ne34345iqd6lklgu.apps.googleusercontent.com
+            client-secret: j6VfujrfgK3rhEuuQOBCiVWH
+            scope:
+            - email
+            - profile
+                       

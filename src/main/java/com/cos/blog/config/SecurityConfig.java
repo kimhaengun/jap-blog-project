@@ -15,11 +15,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.cos.blog.config.oauth.Oauth2DetailsService;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Configuration // 설정, 메모리에 띄움 ioc에 등록
 @EnableWebSecurity // 이제 커스터마이징한 시큐리티가 실행된다. 
 public class SecurityConfig extends WebSecurityConfigurerAdapter{ 
 	// 어댑터는 함수를 걸러줌, 강제성을 없애준다.
-  
+	private final Oauth2DetailsService oAuth2DetailsService;
 	//IOC 등록만 하면 AuthenticationManager 가 Bcrypt로 자동 검증해준다.
 	@Bean
 	public BCryptPasswordEncoder encode() {
@@ -50,6 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //				
 //			}
 //		}); 로그인이 성공하면 / 주소로 갈것이다.
-         .defaultSuccessUrl("/"); //로그인이 성공하면 / 주소로 갈것이다.
+         .defaultSuccessUrl("/")//로그인이 성공하면 / 주소로 갈것이다.
+         .and()
+         .oauth2Login() //oauth
+         .userInfoEndpoint()
+         .userService(oAuth2DetailsService);
+
    }
 }
