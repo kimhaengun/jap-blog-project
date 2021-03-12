@@ -48,7 +48,7 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService{
 			oAuth2UserInfo = new GoogleInfo(oAuth2User.getAttributes());
 		}else if(userRequest.getClientRegistration().getClientName().equals("Facebook")){
 			//Facebook 로그인 시
-
+			oAuth2UserInfo = new FacebookInfo(oAuth2User.getAttributes());
 		}
 		
 		//2.최초 로그인 = 회원가입+로그인, 최초 로그인x = 로그인
