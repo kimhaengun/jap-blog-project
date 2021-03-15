@@ -1,5 +1,6 @@
 package com.cos.blog.config.oauth;
 
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.cos.blog.config.auth.PrincipalDetails;
+import com.cos.blog.domain.user.RoleType;
 import com.cos.blog.domain.user.User;
 import com.cos.blog.domain.user.UserRepository;
 
@@ -39,16 +41,21 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService{
 	}
 	
 	//구글 로그인 프로세스
-	private OAuth2User processOAuth2User(OAuth2UserRequest userRequest,OAuth2User oAuth2User) {
+	private OAuth2User processOAuth2User(OAuth2UserRequest userRequest,
+			OAuth2User oAuth2User) {
 		//1.통합 클래스를 생성 = 누군가는 구글, 누군가는 github으로 로그인하면 Attributes정보가 다르기 때문에
 		OAuth2UserInfo oAuth2UserInfo = null;
 		System.out.println("뭐로 로그인 했을까"+userRequest.getClientRegistration().getClientName());
 		
 		if(userRequest.getClientRegistration().getClientName().equals("Google")) {
 			oAuth2UserInfo = new GoogleInfo(oAuth2User.getAttributes());
+			
 		}else if(userRequest.getClientRegistration().getClientName().equals("Facebook")){
 			//Facebook 로그인 시
 			oAuth2UserInfo = new FacebookInfo(oAuth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getClientName().equals("Naver")){
+			//Naver 로그인 시
+			oAuth2UserInfo = new NaverInfo((Map)(oAuth2User.getAttributes().get("response")));
 		}
 		
 		//2.최초 로그인 = 회원가입+로그인, 최초 로그인x = 로그인
@@ -62,6 +69,7 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService{
 					.username(oAuth2UserInfo.getUsername())
 					.password(encPassword)
 					.email(oAuth2UserInfo.getEmail())
+					.role(RoleType.USER)
 					.build();
 			userEntity = userRepository.save(user);
 			return new PrincipalDetails(userEntity,oAuth2User.getAttributes());
