@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>블로그</title>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -43,7 +44,7 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" href="/post/saveForm">글쓰기</a></li>
-				<li class="nav-item"><a class="nav-link" href="/user/1">회원정보보기</a></li>
+				<li class="nav-item"><a class="nav-link" href="/user/${principal.user.id}">회원정보보기</a></li>
 				<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 			</ul>
 		</div>			

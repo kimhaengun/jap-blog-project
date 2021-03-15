@@ -31,4 +31,5 @@ public class AuthController {
 		authService.회원가입(authJoinReqDto.toEntity());
 		return "redirect:/loginForm";
 	}
+	
 }
