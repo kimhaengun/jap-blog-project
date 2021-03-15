@@ -29,12 +29,11 @@ public class PostController {
 	public String findAll(Model model,
 			@PageableDefault(sort = "id",direction = Sort.Direction.DESC,size = 3)Pageable pageable
 			,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-		System.out.println("누구로 로그인 되었을까?");
-		System.out.println(principalDetails.isOAuth());
-		//true = 구글 false = 일반사용자
-		System.out.println(principalDetails.getAttributes());
-		System.out.println(principalDetails.getUser().getUsername());
-		
+//		System.out.println("누구로 로그인 되었을까?");
+//		System.out.println(principalDetails.isOAuth());
+//		//true = 구글 false = 일반사용자
+//		System.out.println(principalDetails.getAttributes());
+//		System.out.println(principalDetails.getUser().getUsername());		
 		Page<Post> posts = postService.전체찾기(pageable);
 		model.addAttribute("posts",posts); //리퀘스트 디스패쳐 포워딩한것이랑 같다.
 		return "post/list";

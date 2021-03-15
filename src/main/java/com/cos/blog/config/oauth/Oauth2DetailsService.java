@@ -56,6 +56,9 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService{
 		}else if(userRequest.getClientRegistration().getClientName().equals("Naver")){
 			//Naver 로그인 시
 			oAuth2UserInfo = new NaverInfo((Map)(oAuth2User.getAttributes().get("response")));
+		}else if(userRequest.getClientRegistration().getClientName().equals("Kakao")){
+			//Kakao 로그인 시
+			oAuth2UserInfo = new KakaoInfo((Map)(oAuth2User.getAttributes()));
 		}
 		
 		//2.최초 로그인 = 회원가입+로그인, 최초 로그인x = 로그인
