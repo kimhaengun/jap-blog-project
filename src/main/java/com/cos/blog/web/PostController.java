@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.blog.config.auth.PrincipalDetails;
@@ -47,6 +49,13 @@ public class PostController {
 		return "post/saveForm";
 	}
 	
+	@GetMapping("/post/{id}/updateForm")
+	public String updateForm(@PathVariable int id, Model model) { //모델에 담아주면되요
+		Post postEntity = postService.상세보기(id);
+		model.addAttribute("post",postEntity);
+		return "post/saveForm";
+	}
+	
 	@GetMapping("/post/{id}")
 	public String detail(@PathVariable int id, Model model) {
 		Post postEntity = postService.상세보기(id);
@@ -72,5 +81,11 @@ public class PostController {
 		}else {
 			return "redirect:/";
 		}
+	}
+	
+	@PutMapping("/post/{id}")
+	public @ResponseBody CMRespDto<?> update(@PathVariable int id,@RequestBody PostSaveReqDto postSaveReqDto){
+		postService.수정하기(id,postSaveReqDto);
+		return new CMRespDto<>(1,null);
 	}
 }

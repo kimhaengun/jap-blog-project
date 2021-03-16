@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cos.blog.domain.post.Post;
 import com.cos.blog.domain.post.PostRepository;
 import com.cos.blog.domain.user.User;
+import com.cos.blog.web.post.dto.PostSaveReqDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,5 +38,13 @@ public class PostService {
 	@Transactional
 	public void 삭제하기(int id) {
 		postRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public void 수정하기(int id, PostSaveReqDto postSaveReqDto) {
+		Post postEntity = postRepository.findById(id).get();
+		postEntity.setTitle(postSaveReqDto.getTitle());
+		postEntity.setContent(postSaveReqDto.getContent());
+		
 	}
 }
