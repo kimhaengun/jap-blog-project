@@ -33,4 +33,9 @@ public class PostService {
 	public Post 상세보기(int id) {
 		return postRepository.findById(id).get();
 	}
+	
+	@Transactional
+	public void 삭제하기(int id) {
+		postRepository.deleteById(id);
+	}
 }

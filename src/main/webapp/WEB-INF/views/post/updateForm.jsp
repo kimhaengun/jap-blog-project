@@ -3,17 +3,17 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-<form action="/post" method="POST">
+<form>
 	
 	<div class="form-group">
-		<input type="text" class="form-control" placeholder="Enter Title" name="title"/>
+		<input type="text" class="form-control" placeholder="Enter Title" id="title" value="${post.title}"/>
 	</div>
 	
 	<div class="form-group">
-		<textarea rows="" cols="5" class="form-control" name="content" id="content"></textarea>
+		<textarea rows="" cols="5" class="form-control" id="content">${post.content}</textarea>
 	</div>
 
-	<button type="submit" class="btn btn-primary">글쓰기완료</button>
+	<button type="submit" class="btn btn-primary">수정완료</button>
 </form>
 </div>
     <script>
