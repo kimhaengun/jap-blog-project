@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class PostService {
 	private final PostRepository postRepository;
 	
+	@Transactional(readOnly = true)
 	public Page<Post> 전체찾기(Pageable pageable){
 		return postRepository.findAll(pageable);
 	}
@@ -25,5 +26,11 @@ public class PostService {
 	@Transactional
 	public Post 글쓰기(Post post) {
 		return postRepository.save(post);
+	}
+	
+	@Transactional(readOnly = true)
+	//영속성 컨텐츠가 변경감지 x /필요없는 연산x
+	public Post 상세보기(int id) {
+		return postRepository.findById(id).get();
 	}
 }

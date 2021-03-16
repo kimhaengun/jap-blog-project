@@ -10,10 +10,17 @@
 	</div>
 	
 	<div class="form-group">
-		<textarea rows="" cols="5" class="form-control" name="content"></textarea>
+		<textarea rows="" cols="5" class="form-control" name="content" id="summernote"></textarea>
 	</div>
 
 	<button type="submit" class="btn btn-primary">글쓰기완료</button>
 </form>
 </div>
+    <script>
+      $('#summernote').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 300
+      });
+    </script>
 <%@ include file="../layout/footer.jsp"%>

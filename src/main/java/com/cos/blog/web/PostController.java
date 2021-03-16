@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,6 +43,13 @@ public class PostController {
 	@GetMapping("/post/saveForm")
 	public String saveForm() {
 		return "post/saveForm";
+	}
+	
+	@GetMapping("/post/{id}")
+	public String detail(@PathVariable int id, Model model) {
+		Post postEntity = postService.상세보기(id);
+		model.addAttribute("post",postEntity);
+		return "post/detail"; //ViewResolver = jsp파일을 찾아줌
 	}
 	
 	@PostMapping("/post")
