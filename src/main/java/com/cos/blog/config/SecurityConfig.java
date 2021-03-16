@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	   http.csrf().disable();
       http.authorizeRequests()
 //		 .antMatchers("/user", "/post").authenticated() // /user, /post 는 인증만 검사
-         .antMatchers("/user/**","/post/**").access("hasRole('ROLE_USER')or hasRole('RoLE_ADMIN')") 
+         .antMatchers("/user/**","/post/**","/reply/**").access("hasRole('ROLE_USER')or hasRole('RoLE_ADMIN')") 
          //ROLE_는 강제성이 있음
          .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')") //ADMIN권한을 가진자만.
          .anyRequest().permitAll() // 나머지는 전부 허용해준다. 
