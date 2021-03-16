@@ -40,11 +40,13 @@ public class PostService {
 		postRepository.deleteById(id);
 	}
 	
-	@Transactional
-	public void 수정하기(int id, PostSaveReqDto postSaveReqDto) {
-		Post postEntity = postRepository.findById(id).get();
-		postEntity.setTitle(postSaveReqDto.getTitle());
-		postEntity.setContent(postSaveReqDto.getContent());
-		
-	}
+	   @Transactional
+	   public void 수정하기(int id,PostSaveReqDto postSaveReqDto) {
+	      // 영속화 
+	      Post  postEntity = postRepository.findById(id).get();
+	      postEntity.setTitle(postSaveReqDto.getTitle());
+	      postEntity.setContent(postSaveReqDto.getContent());
+
+	   } // 더티체킹 - > 업데이트는 항상 더티체킹
+
 }

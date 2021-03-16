@@ -53,9 +53,10 @@ public class PostController {
 	public String updateForm(@PathVariable int id, Model model) { //모델에 담아주면되요
 		Post postEntity = postService.상세보기(id);
 		model.addAttribute("post",postEntity);
-		return "post/saveForm";
+		return "post/updateForm";
 	}
-	
+
+	   
 	@GetMapping("/post/{id}")
 	public String detail(@PathVariable int id, Model model) {
 		Post postEntity = postService.상세보기(id);
@@ -83,9 +84,10 @@ public class PostController {
 		}
 	}
 	
-	@PutMapping("/post/{id}")
-	public @ResponseBody CMRespDto<?> update(@PathVariable int id,@RequestBody PostSaveReqDto postSaveReqDto){
-		postService.수정하기(id,postSaveReqDto);
-		return new CMRespDto<>(1,null);
-	}
+	   @PutMapping("/post/{id}")
+	   public @ResponseBody CMRespDto<?> updateById(@PathVariable int id,@RequestBody PostSaveReqDto postSaveReqDto){
+	      postService.수정하기(id, postSaveReqDto);
+	      return new CMRespDto<>(1,null);
+	   }
+
 }

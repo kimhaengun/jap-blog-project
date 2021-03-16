@@ -22,14 +22,14 @@
 		e.preventDefault();
 		let data = {
 				title:$("#title").val(),
-				content:$("#content").val(),
+				content:$("#content").val()
 				};
 
 		let id =$("#id").val();
 		
 		$.ajax({
 			type:"PUT",
-			url:"/user/"+id,
+			url:"/post/"+id,
 			data:JSON.stringify(data),
 			contentType:"application/json;charset=utf-8",
 			dataType:"json"
