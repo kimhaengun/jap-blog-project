@@ -2,6 +2,8 @@ package com.cos.blog.web;
 
 
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.blog.config.auth.PrincipalDetails;
+import com.cos.blog.domain.post.Post;
 import com.cos.blog.domain.user.User;
+import com.cos.blog.service.PostService;
 import com.cos.blog.service.UserService;
 import com.cos.blog.web.dto.CMRespDto;
 import com.cos.blog.web.user.dto.UserUpdateReqDto;
@@ -64,5 +68,6 @@ public class UserController {
 	   System.out.println(principalDetails.getUsername());
       return "User";
    }
+
 
 }

@@ -3,6 +3,13 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
+<div class="navbar navbar-expand-sm bg-white navbar-dark d-flex flex-row-reverse bg-secondary">
+  <form class="form-inline" action="/post/search" method="GET">
+    <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
+    <button class="btn btn-success" type="submit">Search</button>
+  </form>
+</div>
+
 	<c:forEach var="post" items="${posts.content}">
 		<div class="card">
 			<div class="card-body">

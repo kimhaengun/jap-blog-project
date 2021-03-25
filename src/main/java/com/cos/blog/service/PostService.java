@@ -48,5 +48,9 @@ public class PostService {
 	      postEntity.setContent(postSaveReqDto.getContent());
 
 	   } // 더티체킹 - > 업데이트는 항상 더티체킹
-
+	   
+	   @Transactional(readOnly = true)
+	   public List<Post> 검색(String search){
+		   return postRepository.findByTitleContaining(search);
+	   }
 }

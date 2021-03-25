@@ -89,5 +89,14 @@ public class PostController {
 	      postService.수정하기(id, postSaveReqDto);
 	      return new CMRespDto<>(1,null);
 	   }
+	   
+	   @GetMapping("/post/search")
+	   public String search(String search, Model model) {
+		   //search = input 값 / name = search
+		  List<Post> posts = postService.검색(search);
+		  model.addAttribute("posts",posts);
+		  System.out.println("검색 결과"+posts);
+		  return "post/list";
+	   }
 
 }
