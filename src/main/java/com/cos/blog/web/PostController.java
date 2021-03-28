@@ -96,7 +96,7 @@ public class PostController {
 		Page<Post> posts = postService.검색(search, pageable);
 		model.addAttribute("posts", posts);
 		model.addAttribute("search",search);
-		return "post/list";
+		return "post/listsearch";
 	}
 
 }
