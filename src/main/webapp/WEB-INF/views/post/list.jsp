@@ -3,9 +3,10 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
+
 <div class="navbar navbar-expand-sm bg-white navbar-dark d-flex flex-row-reverse bg-secondary">
   <form class="form-inline" action="/post/search" method="GET">
-    <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
+    <input class="form-control mr-sm-2" name="search" type="text" placeholder="${search}"/>
     <button class="btn btn-success" type="submit">Search</button>
   </form>
 </div>
@@ -31,7 +32,7 @@
          
          </c:when>
          <c:otherwise>
-         <li class="page-item"><a class="page-link" href="?page=${posts.number-1}">Previous</a></li>
+         <li class="page-item"><a class="page-link" href="search?search=${search}&page=${posts.number-1}">Previous</a></li>
          </c:otherwise>
       </c:choose>
       
@@ -41,7 +42,7 @@
          
          </c:when>
          <c:otherwise>
-         <li class="page-item"><a class="page-link" href="?page=${posts.number+1}">Next</a></li>
+         <li class="page-item"><a class="page-link" href="search?search=${search}&page=${posts.number+1}">Next</a></li>
          </c:otherwise>
       </c:choose>
       

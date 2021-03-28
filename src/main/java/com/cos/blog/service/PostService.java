@@ -50,7 +50,7 @@ public class PostService {
 	   } // 더티체킹 - > 업데이트는 항상 더티체킹
 	   
 	   @Transactional(readOnly = true)
-	   public List<Post> 검색(String search){
-		   return postRepository.findByTitleContaining(search);
+	   public Page<Post> 검색(String search,Pageable pageable){
+		   return postRepository.findByTitleContaining(search,pageable);
 	   }
 }

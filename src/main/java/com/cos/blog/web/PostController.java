@@ -29,74 +29,74 @@ import org.springframework.data.domain.Sort;
 @Controller
 public class PostController {
 	private final PostService postService;
-	
+
 	@GetMapping("/")
 	public String findAll(Model model,
-			@PageableDefault(sort = "id",direction = Sort.Direction.DESC,size = 3)Pageable pageable
-			,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+			@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 3) Pageable pageable,
+			@AuthenticationPrincipal PrincipalDetails principalDetails) {
 //		System.out.println("누구로 로그인 되었을까?");
 //		System.out.println(principalDetails.isOAuth());
 //		//true = 구글 false = 일반사용자
 //		System.out.println(principalDetails.getAttributes());
 //		System.out.println(principalDetails.getUser().getUsername());		
 		Page<Post> posts = postService.전체찾기(pageable);
-		model.addAttribute("posts",posts); //리퀘스트 디스패쳐 포워딩한것이랑 같다.
+		model.addAttribute("posts", posts); // 리퀘스트 디스패쳐 포워딩한것이랑 같다.
 		return "post/list";
 	}
-	
+
 	@GetMapping("/post/saveForm")
 	public String saveForm() {
 		return "post/saveForm";
 	}
-	
+
 	@GetMapping("/post/{id}/updateForm")
-	public String updateForm(@PathVariable int id, Model model) { //모델에 담아주면되요
+	public String updateForm(@PathVariable int id, Model model) { // 모델에 담아주면되요
 		Post postEntity = postService.상세보기(id);
-		model.addAttribute("post",postEntity);
+		model.addAttribute("post", postEntity);
 		return "post/updateForm";
 	}
 
-	   
 	@GetMapping("/post/{id}")
 	public String detail(@PathVariable int id, Model model) {
 		Post postEntity = postService.상세보기(id);
-		model.addAttribute("post",postEntity);
-		return "post/detail"; //ViewResolver = jsp파일을 찾아줌
+		model.addAttribute("post", postEntity);
+		return "post/detail"; // ViewResolver = jsp파일을 찾아줌
 	}
-	
+
 	@DeleteMapping("/post/{id}")
-	public @ResponseBody CMRespDto<?> deleteById(@PathVariable int id){
+	public @ResponseBody CMRespDto<?> deleteById(@PathVariable int id) {
 		postService.삭제하기(id);
-		return new CMRespDto<>(1,null);
+		return new CMRespDto<>(1, null);
 	}
-	
-	
+
 	@PostMapping("/post")
 	public String save(PostSaveReqDto postSaveReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 		Post post = postSaveReqDto.toEntity();
-		post.setUser(principalDetails.getUser()); //연관관계를 위해서 작성한다.
+		post.setUser(principalDetails.getUser()); // 연관관계를 위해서 작성한다.
 		Post postEntity = postService.글쓰기(post);
-		
-		if(postEntity == null) {
+
+		if (postEntity == null) {
 			return "post/saveForm";
-		}else {
+		} else {
 			return "redirect:/";
 		}
 	}
-	
-	   @PutMapping("/post/{id}")
-	   public @ResponseBody CMRespDto<?> updateById(@PathVariable int id,@RequestBody PostSaveReqDto postSaveReqDto){
-	      postService.수정하기(id, postSaveReqDto);
-	      return new CMRespDto<>(1,null);
-	   }
-	   
-	   @GetMapping("/post/search")
-	   public String search(String search, Model model) {
-		   //search = input 값 / name = search
-		  List<Post> posts = postService.검색(search);
-		  model.addAttribute("posts",posts);
-		  System.out.println("검색 결과"+posts);
-		  return "post/list";
-	   }
+
+	@PutMapping("/post/{id}")
+	public @ResponseBody CMRespDto<?> updateById(@PathVariable int id, @RequestBody PostSaveReqDto postSaveReqDto) {
+		postService.수정하기(id, postSaveReqDto);
+		return new CMRespDto<>(1, null);
+	}
+
+	@GetMapping("/post/search")
+	public String search(String search, Model model,
+			@PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 3) Pageable pageable) {
+		// search = input 값 / name = search
+		System.out.println("검색 단어 : " + search);
+		Page<Post> posts = postService.검색(search, pageable);
+		model.addAttribute("posts", posts);
+		model.addAttribute("search",search);
+		return "post/list";
+	}
 
 }
