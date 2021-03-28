@@ -23,5 +23,11 @@ public class ReplyService {
       }else {
          return -1;
       }
+   } //삭제하기 끝
+   
+   @Transactional
+   public Reply 저장하기(Reply reply) {
+	   return replyRepository.save(reply);
    }
+   
 }

@@ -29,7 +29,7 @@
 				<textarea id="reply-content" class="form-control" rows="1"></textarea>
 			</div>
 			<div class="card-footer">
-				<button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+				<button type="button" id="btn-reply-save" class="btn btn-primary" onclick="replySave(${post.id})">등록</button>
 			</div>
 		</form>
 	</div>
@@ -54,6 +54,28 @@
 	<!-- 댓글 끝 -->
 </div>
 <script>
+function replySave(id){
+	console.log(id);
+	console.log($("#reply-content").val());
+	let data ={
+		postId:id,
+		content:$("#reply-content").val()
+			}
+	$.ajax({
+			method:"POST",
+			url:"/post/reply",
+			data:JSON.stringify(data),
+			contentType:"application/json;charset=utf-8",
+			dataType:"json"
+		}).done(res=>{
+		if(res.statusCode ===1){
+			location.reload();
+		}else{
+			alert("실패!")
+			}
+	});
+	
+}
 	function deleteReply(id){
 	      $.ajax({
 	          type: "DELETE",
